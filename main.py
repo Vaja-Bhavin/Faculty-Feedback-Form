@@ -2,7 +2,12 @@ import student as s
 import form as fm
 from Data import editData
 
-a = int(input("1: Student,\n2: Faculty.\nWho Are You: "))
+while True:
+    a = (input("1: Student,\n2: Faculty.\nWho Are You: "))
+    if a in ("1","2"):
+        a = int(a)
+        break
+    print("Enter Valid Option!\n")
 print()
 if a==1:
     b = input("Do You Want To Give Feedback(Y/N): ")
