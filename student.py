@@ -59,7 +59,7 @@ class student:
                         j+=1
                         i.data.at[5,temp2] = i.data[temp2][5]+1
                     else:
-                        print("enter valid answer")
+                        print("Enter Valid Answer")
             i.data["Total"] = sum([i.data["q1"],i.data["q2"],i.data["q3"],i.data["q4"],i.data["q5"],i.data["q6"],i.data["q7"],i.data["q8"],i.data["q9"],i.data["q10"],i.data["q11"],i.data["q12"]])
             i.data["Score"] = i.data["Point"]*i.data["Total"]
             i.data.at[5,"Total"] = None

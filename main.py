@@ -23,7 +23,10 @@ if a==1:
             print("Enter Valid Answer!")
         year = int(input("Enter Year:"))
         s2 = s.student(enno,name,sem,div,year)
-        s2.givfeedback()
+        try:
+            s2.givfeedback()
+        except KeyboardInterrupt:
+            print("Please Fill Form Before Leaving")
 elif a==2:
     while True:
         c = int(input("1:Show Data,\n2:Show Score,\n3:Show Graph,\n4:Create New Form,\n5:Edit Data,\n0:Exit.\nEnter Your Operation: "))
