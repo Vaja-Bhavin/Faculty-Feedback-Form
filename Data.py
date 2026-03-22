@@ -5,6 +5,8 @@ def arrangeFac(data:dict):
     temp = {}
     for key,value in zip(range(1,len(data)+1),data.values()):
         temp[str(key)] = value
+    # for value in data.values():
+    #     temp[str(value["Id"])] = value
     return temp
 
 def arrangeSub(data:dict):

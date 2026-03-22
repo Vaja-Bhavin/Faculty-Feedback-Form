@@ -42,7 +42,8 @@ class faculty(filesys):
 
     
     def _find_score(self):
-        df = pd.read_csv(self.fn)
-        fs = df.at[5,"Score"]/(12*df["q12"][5])
+        # df = pd.read_csv(self.fn)
+        df = self.data
+        fs = df.at[5,"Score"]/(self.qua*df["q12"][5])
         return fs
     

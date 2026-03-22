@@ -64,6 +64,6 @@ class student:
             i.data["Score"] = i.data["Point"]*i.data["Total"]
             i.data.at[5,"Total"] = None
             i.data.at[5,"Score"] = sum(i.data.loc[0:4,"Score"])
-            print(i.data)
+            # print(i.data)
             i.data.to_csv(i.fn,index=False)
             data.save_to_file()

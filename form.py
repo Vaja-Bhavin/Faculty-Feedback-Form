@@ -3,6 +3,7 @@ import pickle as p
 import json as j
 import os
 import matplotlib.pyplot as plt
+import pandas as pd
 with open("Data/faculty.json","r") as f1:
     FAC = j.load(f1)
 
@@ -49,10 +50,10 @@ class form:
         else:
             for i in range(n):
                 for key,val in FAC.items():
-                    print(f"Id:{val["Id"]},Name:{val["Name"]}")
+                    print(f"Key:-{key} Id:{val["Id"]},Name:{val["Name"]}")
 
                 print(f"\n{i+1}st Faculty")
-                id = int(input("Enter ID: "))
+                id = int(input("Enter Key: "))
                 name = FAC[str(id)]["Name"]
                 divsub = {}
                 print()
@@ -64,6 +65,7 @@ class form:
                     print(f"{key}:Sub Code-{val["Code"]},Sub Name-{val["Name"]}")
                 print("If Faculty Don't Take Lacture In Particular Div Enter '0'! ")
                 
+
                 for div in ["A","B","C"]:
                     sub2 = int(input(f"Enter Subject For {div}: "))
                     if sub2 == 0:
@@ -71,8 +73,31 @@ class form:
                     divsub[div]=sub[str(sub2)]
                 print()
                 # print(divsub)
-                qua = len(divsub)*12
-                # print(qua)
+                qua = 12
+                temp = len(divsub)
+                if temp == 3:
+                    if divsub["A"] != divsub["B"]:
+                        qua +=12
+                        if divsub["B"] != divsub["C"]:
+                            if divsub["A"] != divsub["C"]:
+                                qua +=12
+                    else:
+                        if divsub["A"] != divsub["C"]:
+                            qua +=12
+                elif temp == 2:
+                    temp1 = divsub.keys()
+                    if "A" in temp1:
+                        if "B" in temp1:
+                            if divsub["A"] != divsub["B"]:
+                                qua+=12
+                        else:
+                            if divsub["A"] != divsub["C"]:
+                                qua+=12
+                    else:
+                        if divsub["B"] != divsub["C"]:
+                            qua+=12
+                # qua = len(divsub)*12
+                print(qua)
                 fn = self.dir_name+"/"+name+".csv"
                 fac = f.faculty(id,name,divsub,qua,fn)
                 self.facultys.append(fac)
@@ -138,3 +163,19 @@ class form:
             data =p.load(f1)
             return data
         
+    def generate_grade_file(self):
+        fdata = {
+            "ID":[],
+            "Name":[],
+            "Grade":[]
+               }
+        for fac in self.facultys:
+            temp = float(str(fac._find_score())[:4])
+            fdata["ID"].append(fac.id)
+            fdata["Name"].append(fac.name)
+            fdata["Grade"].append(temp)
+        df = pd.DataFrame(fdata)
+        df["x25 Ratio"] = df["Grade"]*5
+        df.to_csv(f"{self.dir_name}/Grade File.csv",index=False)
+        print("Grade File Successfully Generated.")
+        print()

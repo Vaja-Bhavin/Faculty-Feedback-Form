@@ -29,7 +29,7 @@ if a==1:
             print("Please Fill Form Before Leaving")
 elif a==2:
     while True:
-        c = int(input("1:Show Data,\n2:Show Score,\n3:Show Graph,\n4:Create New Form,\n5:Edit Data,\n0:Exit.\nEnter Your Operation: "))
+        c = int(input("1:Show Data,\n2:Show Score,\n3:Show Graph,\n4:Create New Form,\n5:Edit Data,\n6:Generate Grade File\n0:Exit.\nEnter Your Operation: "))
         print()
         if c==1:
             fm.form.Show_Data()
@@ -41,6 +41,16 @@ elif a==2:
             fm.form()
         elif c==5:
             editData()
+        elif c==6:
+            semTemp = int(input("Enter Sem: "))
+            yearTemp = int(input("Enter Year: "))
+            try:
+                data = fm.form.load_from_file(semTemp,yearTemp)
+            except FileNotFoundError:
+                print("Feedback Not Available!")
+                print()
+                continue
+            data.generate_grade_file()
         elif c==0:
             break
         else:
